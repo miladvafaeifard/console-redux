@@ -21,7 +21,7 @@ function reducer(state, action) {
   return state;
 }
 
-const store = createStore(reducer);
+const store = createStore(reducer, defaultState);
 
 function addView(viewFunc) {
   viewFunc(defaultState);
