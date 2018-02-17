@@ -1,3 +1,5 @@
+const { createStore } = require('redux');
+
 const defaultState = {
   courses: [
     {
@@ -14,6 +16,12 @@ const defaultState = {
     }
   ]
 };
+
+function reducer(state, action) {
+  return state;
+}
+
+const store = createStore(reducer);
 
 function addView(viewFunc) {
   viewFunc(defaultState);
