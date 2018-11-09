@@ -1,4 +1,9 @@
 {
+  "homepage": "git;//github.com:miladvafaeifard/console-redux.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:miladvafaeifard/console-redux.git"
+  },
   "dependencies": {
     "redux": "^3.6.0"
   }
