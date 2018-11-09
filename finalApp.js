@@ -31,6 +31,11 @@ function reducer(state, action) {
       return Object.assign({}, state, {
         courses: [...state.courses, action.course]
       });
+    case 'REMOVE_COURSE':
+        const filteredCourses = state.courses.filter(course => {
+          return course.name !== action.course.name
+        });
+        return {...state, courses: [...filteredCourses] };
     default:
       return state;
   }
@@ -40,11 +45,9 @@ const store = createStore(reducer, defaultState, applyMiddleware(logger));
 
 
 function addView(viewFunc) {
-  viewFunc(store.getState());
-
   store.subscribe(() => {
     viewFunc(store.getState());
-  })
+  });
 }
 
 addView((state) => {
@@ -63,3 +66,21 @@ store.dispatch({
     topic: 'Really does not matter'
   }
 });
+
+store.dispatch({
+  type: 'ADD_COURSE',
+  course: {
+    name: 'Design pattern',
+    topic: 'Memento, Mediator'
+  }
+});
+
+
+store.dispatch({
+    type: 'REMOVE_COURSE',
+    course: {
+        name: 'This is the new course',
+        topic: 'Really does not matter'
+    }
+});
+
