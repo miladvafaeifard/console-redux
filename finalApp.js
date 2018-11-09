@@ -1,10 +1,11 @@
 const { createStore, applyMiddleware } = require('redux');
-
+const chalk = require('chalk');
 
 const logger = store => next => action => {
-  console.log('dispatching', action)
+  console.log(chalk.bgBlue('Action: '), action.type)
   let result = next(action)
-  console.log('state after action', store.getState())
+  console.log(chalk.bgBlue('state after action: '), store.getState())
+  console.log('\n\n');
   return result
 }
 
