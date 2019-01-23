@@ -1,15 +1,33 @@
 const { createStore, applyMiddleware } = require('redux');
 const chalk = require('chalk');
 
+// curry 
+const decorateText = (color = 'bgRed') => ({ text = 'blah blah', others = 'DEBUG' }) => {
+  color = (color === 'bgRed' || color === 'bgBlue')? color : 'bgYellow';
+  console.log(chalk[color](text), others);
+}
+
 const logger = store => next => action => {
-  console.log(chalk.bgBlue('Action: '), action.type)
+  let yellowColor = decorateText();
+  
+  yellowColor({
+    others: action.type
+  });
+
   let result = next(action)
-  console.log(chalk.bgBlue('state after action: '), store.getState())
+
+  yellowColor({
+    text: 'state after action: ',
+    others: store.getState()
+  });
+
   console.log('\n\n');
+
   return result
 }
 
 const defaultState = {
+  skills: [{name: 'Angular'}],
   courses: [
     {
       name: 'Learning React',
@@ -36,7 +54,7 @@ function reducer(state, action) {
         const filteredCourses = state.courses.filter(course => {
           return course.name !== action.course.name
         });
-        return {...state, courses: [...filteredCourses] };
+        return {...state, courses: [...filteredCourses], skills: 'React' };
     default:
       return state;
   }
