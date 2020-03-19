@@ -33,11 +33,12 @@ const loggers = [logger, logger2];
 const ADD_COURSE = 'ADD_COURSE';
 
 function reducer(state, action) {
-    switch(action.type){
-        case ADD_COURSE:
-            return Object.assign({}, state, {
-                courses: [...state.courses, action.course]
-            });
+    switch(action.type) {
+			case ADD_COURSE:
+				return {
+					...state,
+					courses: [...state.courses, action.course]
+				};
         default:
             return state;
     }
